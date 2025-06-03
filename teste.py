@@ -2,6 +2,7 @@ from ultralytics import YOLO
 import cv2
 import telebot
 import threading
+import time
 
 TOKEN = "7744307403:AAHydF9ilHCy3gQp_R4iwHpc2r-OwTI7s7A"
 CHAT_ID = "5872025823"
@@ -20,7 +21,7 @@ model = YOLO("runs/detect/train4/weights/best.pt")
 cap = cv2.VideoCapture(0)
 
 classe_fogo = list(model.names.values())[0]
-enviado = False
+ultimo_alerta = 0 
 
 while True:
     ret, frame = cap.read()
@@ -44,11 +45,12 @@ while True:
                             cv2.FONT_HERSHEY_SIMPLEX, 0.9, (0, 0, 255), 2)
                 cv2.imwrite("alerta.jpg", frame)
 
-    if fogo_detectado and not enviado:
+    agora = time.time()
+    if fogo_detectado and (agora - ultimo_alerta > 10):
         bot.send_message(CHAT_ID, "🔥 Tá pegando fogo, bixo!")
-        enviado = True
-    elif not fogo_detectado:
-        enviado = False 
+        ultimo_alerta = agora 
+        with open("alerta.jpg", "rb") as foto:
+            bot.send_photo(CHAT_ID, foto)
 
     cv2.imshow("Video", frame)
     if cv2.waitKey(1) == ord('q'):
