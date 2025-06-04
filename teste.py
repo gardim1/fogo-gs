@@ -3,7 +3,6 @@ import cv2
 import telebot
 import threading
 import time
-import bisect
 
 TOKEN = "7744307403:AAHydF9ilHCy3gQp_R4iwHpc2r-OwTI7s7A"
 CHAT_ID = "5872025823"
@@ -25,18 +24,35 @@ ultimo_alerta = 0
 
 ocorrencias = []
 historico = []
-relatorio_regioes = {}
+relatorio_regioes = {} # Dicionário usado para armazenar contagem de atendimentos por região
 
 def registrar_ocorrencia(severidade, local):
     timestamp = time.time()
-    bisect.insort(ocorrencias, (severidade, timestamp, local))
+    nova_ocorrencia = (severidade, timestamp, local)
+
+    # Implementação da busca binária para encontrar o índice de inserção
+    low = 0
+    high = len(ocorrencias)
+    while low < high:
+        mid = (low + high) // 2
+        if ocorrencias[mid][0] < severidade:
+            low = mid + 1
+        elif ocorrencias[mid][0] > severidade:
+            high = mid
+        else:
+            # empata em severidade, desempata por timestamp 
+            if ocorrencias[mid][1] < timestamp:
+                low = mid + 1
+            else:
+                high = mid
+    ocorrencias.insert(low, nova_ocorrencia)  
 
 def atender_ocorrencia():
     if ocorrencias:
-        ocorrencia = ocorrencias.pop()
+        ocorrencia = ocorrencias.pop() # Análise de eficiência: como a lista está ordenada, último item é o mais urgente
         historico.append(ocorrencia)
         regiao = ocorrencia[2]
-        relatorio_regioes[regiao] = relatorio_regioes.get(regiao, 0) + 1
+        relatorio_regioes[regiao] = relatorio_regioes.get(regiao, 0) + 1 # Uso de dicionário com contagem acumulada
         return ocorrencia
     return None
 
