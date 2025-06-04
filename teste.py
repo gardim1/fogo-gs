@@ -5,7 +5,7 @@ import threading
 import time
 
 TOKEN = "7744307403:AAHydF9ilHCy3gQp_R4iwHpc2r-OwTI7s7A"
-CHAT_ID = "5872025823"
+CHAT_ID = "5872025823" # Substitua pelo ID do chat onde deseja enviar as mensagens, olhe na documentação do bot o seu chatID
 bot = telebot.TeleBot(TOKEN)
 
 @bot.message_handler(commands=['start', 'help'])
