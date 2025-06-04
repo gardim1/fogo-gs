@@ -9,7 +9,7 @@ Este projeto simula um sistema de resposta a queimadas utilizando **YOLOv8**, **
 
 O projeto utiliza **conceitos do Conjunto 3** de Programação Dinâmica, como:
 
--  **Busca binária (bisect.insort)**: para manter a lista de ocorrências ordenada por severidade e tempo.
+-  **Busca binária**: para manter a lista de ocorrências ordenada por severidade e tempo.
 -  **Dicionários**: usados para gerar relatórios agregados por região.
 -  **Análise de algoritmos**: as estruturas foram escolhidas visando eficiência, principalmente para ordenação e registro.
 
