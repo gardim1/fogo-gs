@@ -31,18 +31,25 @@ O projeto utiliza **conceitos do Conjunto 3** de Programação Dinâmica, como:
 O código contém comentários onde os conceitos do Conjunto 3 são aplicados. Trechos como:
 
 ```python
-relatorio_regioes = {}  # <-- USO DE DICIONÁRIO
-bisect.insort(ocorrencias, ...)  # <-- USO DE BUSCA BINÁRIA
+def registrar_ocorrencia(severidade, local):
+    timestamp = time.time()
+    nova_ocorrencia = (severidade, timestamp, local)
+
+    # Implementação da busca binária para encontrar o índice de inserção
 ```
 
 ---
 
 ## Execução
 
-1. Treine seu modelo YOLO e coloque o `.pt` em `runs/detect/train4/weights/best.pt`
-2. Instale dependências:
+1. Treine seu modelo YOLO e coloque o `.pt` em `runs/detect/train/weights/best.pt`
+2. Instale dependências (preferencia com venv):
 ```bash
-pip install ultralytics opencv-python pyTelegramBotAPI
+pip install ultralytics opencv-python telebot
 ```
-3. Execute o script.
+ou
+```bash
+pip install -r requirements.txt
+```
+3. Execute o script (Necessario webcam ou droidcam).
 4. Interaja com o bot via Telegram e observe a detecção ao vivo.
