@@ -24,13 +24,13 @@ ultimo_alerta = 0
 
 ocorrencias = []
 historico = []
-relatorio_regioes = {} # Dicionário usado para armazenar contagem de atendimentos por região
+relatorio_regioes = {} # Dicionário usado para armazenar contagem de atendimentos por região - O(1) 
 
 def registrar_ocorrencia(severidade, local):
     timestamp = time.time()
     nova_ocorrencia = (severidade, timestamp, local)
 
-    # Implementação da busca binária para encontrar o índice de inserção
+    # Implementação da busca binária para encontrar o índice de inserção - O(log n)
     low = 0
     high = len(ocorrencias)
     while low < high:
@@ -40,7 +40,7 @@ def registrar_ocorrencia(severidade, local):
         elif ocorrencias[mid][0] > severidade:
             high = mid
         else:
-            # empata em severidade, desempata por timestamp 
+            # empata em severidade, desempata por timestamp - O(log n)
             if ocorrencias[mid][1] < timestamp:
                 low = mid + 1
             else:
@@ -49,7 +49,7 @@ def registrar_ocorrencia(severidade, local):
 
 def atender_ocorrencia():
     if ocorrencias:
-        ocorrencia = ocorrencias.pop() # Análise de eficiência: como a lista está ordenada, último item é o mais urgente
+        ocorrencia = ocorrencias.pop() # Análise de eficiência: como a lista está ordenada, último item é o mais urgente - O(n)
         historico.append(ocorrencia)
         regiao = ocorrencia[2]
         relatorio_regioes[regiao] = relatorio_regioes.get(regiao, 0) + 1 # Uso de dicionário com contagem acumulada
