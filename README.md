@@ -1,7 +1,7 @@
 
 # Projeto - Detecção e Resposta a Queimadas com Visão Computacional
 
-Este projeto simula um sistema de resposta a queimadas utilizando **YOLOv8**, **OpenCV** e **Python**. A solução identifica fogo em tempo real via webcam e aciona um bot do Telegram com alertas automáticos. 
+Este projeto é um sistema de resposta a queimadas utilizando **YOLOv8**, **OpenCV** e **Python**. A solução identifica fogo em tempo real via webcam e aciona um bot do Telegram com alertas automáticos. 
 
 ---
 
